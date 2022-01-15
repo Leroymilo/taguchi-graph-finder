@@ -1,7 +1,11 @@
-#Ressource for L_16(2^15) Taguchi tables and graphs
+#Ressource for Taguchi tables and graphs
+#The name of the file is not really representative as it also contains ressources for a L8(2^7) graph.
 
 import numpy as np
 
+#Every alias is decreased by one to be easier to access with python normalization (indices start at 0)
+
+#Tables for L8(2^7) and L16(2^15) graphs, -1 slots of the tables are not supposed to be accessed.
 table8 = np.array([
 [-1,  2,  1,  4,  3,  6,  5], 
 [-1, -1,  0,  5,  6,  3,  4], 
@@ -26,6 +30,7 @@ table16 = np.array([
 [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  2,  1], 
 [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0]])
 
+#All the aliases used for the nodes and not the interractions.
 Tgraphs = [[0, 1, 3, 6], 
     [0, 1, 14, 3, 7], 
     [14, 7, 11, 0, 9, 1, 3], 
@@ -34,6 +39,7 @@ Tgraphs = [[0, 1, 3, 6],
     [7, 3, 9, 0, 1, 11, 13, 4], 
     [0, 3, 4, 6, 5, 1, 7, 9, 10, 8]]
 
+#Position of the nodes in the interface.
 nodePos = [[(630, 120), (500, 400), (630, 400), (760, 400)],
     [(630, 120), (480, 220), (780, 220), (520, 400), (740, 400)],
     [(540, 120), (720, 120), (450, 260), (630, 275), (810, 260), (540, 400), (720, 400)],
