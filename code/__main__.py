@@ -8,15 +8,15 @@ from pygame.locals import *
 
 #The Taguchi tables are encoded with all the indices decreased by 1 to go from 0 to n-1 (easier to call)
 
-#TODO : return all the possible graphs and display unused aliases
+#TODO : display unused aliases
 
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 nodeSize = 20
 
-idGraph = 0
+idGraph = 0#Index of the graph from Tgraphs used (see Tag_16_15.py)
 table = table16
-graph = [chars[i] for i in range(len(Tgraphs[idGraph]))]
-links = []
+graph = [chars[i] for i in range(len(Tgraphs[idGraph]))]#The order of the nodes in the graph is top to bottom and left to right.
+links = []#The list of interractions is built with the interface.
 activeStep = 0
 currentSol = 0
 solutions = []
@@ -24,27 +24,32 @@ selected = None
 
 window = pg.display.set_mode((1280, 720))
 
+
+#Functions used to find working permutations :
 def tryPermut(permut) :
     pgraph = list(permut)
-    usedInters = Tgraphs[idGraph].copy()
+    usedInters = Tgraphs[idGraph].copy()#Initializes the list of used aliases with data from taguchi tables depending of the graph used
     for link in links :
+        #Getting the alias from the link :
         interraction = set((Tgraphs[idGraph][pgraph.index(link[0])], Tgraphs[idGraph][pgraph.index(link[1])]))
         interraction = table[min(interraction), max(interraction)]
         if interraction not in usedInters :
             usedInters.append(interraction)
-        else :
+        else :#If the alias is already used, this configuration is treated as wrong.
             break
     else :
         return pgraph
 
 def process() :
     solutions = []
-    for permut in itt.permutations(graph, len(graph)) :
+    for permut in itt.permutations(graph, len(graph)) :#Using itertools to get every permutation of the nodes of the initial graph.
         sol = tryPermut(permut)
         if sol is not None :
             solutions.append(sol)
     return solutions
 
+
+#Everything below this line is only for the interface.
 def display() :
     window.fill((100, 100, 100))
     steps[activeStep].display(window)
